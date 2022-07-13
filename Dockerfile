@@ -15,12 +15,8 @@ RUN apk add --no-cache tzdata git composer && \
     docker-php-ext-install bcmath && \
     git clone --depth 1 https://github.com/WangNingkai/OLAINDEX.git . && \
     composer install -vvv && \
-    composer run install-app && \
-    addgroup -g 900 -S olaindex && \
-    adduser -h /OLAINDEX -s /bin/sh -G olaindex -u 900 -S olaindex && \
-    chown -R olaindex:olaindex /OLAINDEX && \
-    chmod 755 /OLAINDEX/storage
+    composer run install-app
 
 EXPOSE 8000
 
-CMD ["su", "olaindex", "-c", "php artisan serve --host=0.0.0.0 --port=8000 --tries=0 --no-interaction"]
+CMD ["php artisan serve --host=0.0.0.0 --port=8000 --tries=0 --no-interaction"]
